@@ -1,0 +1,68 @@
+### Send POST request with json body
+POST http://localhost:8090/clients
+Content-Type: application/json
+
+{ "name" : "client1" }
+### Get request with a header
+GET http://localhost:8090/clients
+Accept: application/json
+
+### Get request with a header
+GET http://localhost:8090/clients/14
+Accept: application/json
+
+### Get request with a header
+GET http://localhost:8090/policies
+Accept: application/json
+
+### Send POST request with json body
+POST http://localhost:8090/clients
+Content-Type: application/json
+
+{ "name" : "client1" }
+
+### Send POST request with json body
+POST http://localhost:8090/policies
+Content-Type: application/json
+
+{ "name" : "policy1" }
+
+### Send POST request with json body
+POST http://localhost:8090/policies
+Content-Type: application/json
+
+{ "name" : "policy2" }
+
+### Send POST request with json body
+POST http://localhost:8090/clients/1/policies/1
+Content-Type: application/json
+
+### Send POST request with json body
+GET http://localhost:8090/clients/1/policies
+Content-Type: application/json
+
+### Send POST request with json body
+POST http://localhost:8090/clients/1/policies
+Content-Type: application/json
+
+{ "name" : "policy3" }
+
+### Send POST request with json body
+POST http://localhost:8090/objects
+Content-Type: application/json
+
+{ "name" : "object1" }
+
+### Send POST request with json body
+POST http://localhost:8090/objects/1/options
+Content-Type: application/json
+
+{ "name" : "option1" }
+
+### Send POST request with json body
+GET http://localhost:8090/objects
+Content-Type: application/json
+
+### Send POST request with json body
+GET http://localhost:8090/options
+Content-Type: application/json
