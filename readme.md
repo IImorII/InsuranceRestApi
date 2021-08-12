@@ -9,6 +9,8 @@
 4. Wait about 30-40 sec for MySQL server up.
 5. After loading send requests for REST api on localhost:8090 (Postman or fetch).
 
+### Also you can go to localhost:8090 using web browser to create clients via demo UI.
+
 ### If you want to run the application without using docker, change the datasource in application.properties.
 
 # Insurance REST API
