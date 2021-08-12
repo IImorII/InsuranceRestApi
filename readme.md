@@ -67,7 +67,7 @@
 ## GET
 * /clients: retrieve all clients.
 * /objects: retrieve all insurance objects.
-* /types: retrie all object types.
+* /types: retrieve all object types.
 * /options: retrieve all insurance options.
 * /policies: retrieve all policies.
 
@@ -117,14 +117,14 @@
 ## Object
 
 ### GET relations for Object
-* /objects/{objectId}/options: get a list of insurance options for object.
+* /objects/{objectId}/options: get a list of insurance options for the object.
 * /objects/{objectId}/type: get object type.
 * /objects/{objectId}/policy: get the policy in which the object is located.
 
 ### POST relations for Object
-* /objects/{objectId}/options: create a new insurance option for object.
-* /objects/{objectId}/type: create a new type for object.
-* /objects/{objectId}/policy: create a new policy for object.
+* /objects/{objectId}/options: create a new insurance option for the object.
+* /objects/{objectId}/type: create a new type for the object.
+* /objects/{objectId}/policy: create a new policy for the object.
 * /objects/{objectId}/options/{optionId}: add an existing insurance option to the object.
 * /objects/{objectId}/types/{typeId}: add an existing type to the object.
 * /objects/{objectId}/policies/{policyId}: add an existing policy to the object.
@@ -133,7 +133,7 @@
 * /objects/{objectId}/types/{typeId}: change object type.
 
 ### DELETE relations for Object
-* /objects/{objectId}/options/{optionId}.
+* /objects/{objectId}/options/{optionId}: delete insurance option from the object.
 
 
 ## Type
