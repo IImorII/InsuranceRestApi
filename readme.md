@@ -9,7 +9,7 @@
 
 ## Database
 
-![database](https://i.ibb.co/r0LMQdT/image.png "Insurance simple database")
+![database](https://i.ibb.co/r0LMQdT/image.png =800px "Insurance simple database")
 
 ## General endpoints
 
