@@ -9,7 +9,11 @@
 
 ## Database
 
+<<<<<<< HEAD
 ![database](https://i.ibb.co/r0LMQdT/image.png =800px)
+=======
+![database](https://i.ibb.co/r0LMQdT/image.png =800px "Insurance simple database")
+>>>>>>> 78f00975c02b1bf7c8513fe2d2944b4479bb7491
 
 ## General endpoints
 
