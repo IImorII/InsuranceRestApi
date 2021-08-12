@@ -12,7 +12,7 @@ public interface InsuranceClientService extends BaseService<InsuranceClient> {
     List<InsurancePolicy> getClientPolicyList(Long clientId);
 
     /** POST without id - create a new object and connect it with current object */
-    InsuranceClient addPolicyToClient(Long clientId, InsurancePolicy policy);
+    InsuranceClient createPolicyForClient(Long clientId, InsurancePolicy policy);
 
     /** POST with id - create relationship between the two existing objects */
     InsuranceClient setPolicyToClient(Long clientId, Long policyId);

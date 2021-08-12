@@ -2,17 +2,21 @@ package jp.mikunika.SpringBootInsurance.controller;
 
 import jp.mikunika.SpringBootInsurance.dto.InsuranceClientDto;
 import jp.mikunika.SpringBootInsurance.dto.InsurancePolicyDto;
-import jp.mikunika.SpringBootInsurance.exception.NotFoundException;
 import jp.mikunika.SpringBootInsurance.model.InsuranceClient;
 import jp.mikunika.SpringBootInsurance.model.InsurancePolicy;
 import jp.mikunika.SpringBootInsurance.service.InsuranceClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("clients")
@@ -27,14 +31,13 @@ public class InsuranceClientController {
 
     @GetMapping
     public ResponseEntity<List<InsuranceClientDto>> getClients() {
-        List<InsuranceClient> clients = clientService.getAll();
-        List<InsuranceClientDto> clientDtos = clients.stream().map(InsuranceClientDto::from).collect(Collectors.toList());
-        return ResponseEntity.ok(clientDtos);
+        List<InsuranceClient> clients = clientService.findAll();
+        return ResponseEntity.ok(InsuranceClientDto.fromList(clients));
     }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<InsuranceClientDto> getOneClient(@PathVariable final Long id) {
-        InsuranceClient client = clientService.getOne(id);
+        InsuranceClient client = clientService.findOne(id);
         return ResponseEntity.ok(InsuranceClientDto.from(client));
     }
 
@@ -58,13 +61,12 @@ public class InsuranceClientController {
     @GetMapping(value = "{id}/policies")
     public ResponseEntity<List<InsurancePolicyDto>> getClientPolicyList(@PathVariable final Long id) {
         List<InsurancePolicy> policyList = clientService.getClientPolicyList(id);
-        List<InsurancePolicyDto> policyDtoList = policyList.stream().map(InsurancePolicyDto::from).collect(Collectors.toList());
-        return ResponseEntity.ok(policyDtoList);
+        return ResponseEntity.ok(InsurancePolicyDto.fromList(policyList));
     }
 
     @PostMapping(value = "{clientId}/policies")
-    public ResponseEntity<InsuranceClientDto> addPolicyToClient(@PathVariable final Long clientId, @RequestBody InsurancePolicyDto policyDto) {
-        InsuranceClient client = clientService.addPolicyToClient(clientId, InsurancePolicy.from(policyDto));
+    public ResponseEntity<InsuranceClientDto> createPolicyForClient(@PathVariable final Long clientId, @RequestBody InsurancePolicyDto policyDto) {
+        InsuranceClient client = clientService.createPolicyForClient(clientId, InsurancePolicy.from(policyDto));
         return ResponseEntity.ok(InsuranceClientDto.from(client));
     }
 

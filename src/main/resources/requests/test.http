@@ -1,14 +1,43 @@
 ### Send POST request with json body
-POST http://localhost:8090/clients
+POST http://localhost:8090/objects
 Content-Type: application/json
 
-{ "name" : "client1" }
+{ "name" : "object1" }
+
+### Send POST request with json body
+POST http://localhost:8090/options
+Content-Type: application/json
+
+{ "name" : "option1" }
+
+### Send POST request with json body
+POST http://localhost:8090/objects/1/type
+Content-Type: application/json
+
+{ "name" : "type1" }
+
+### Send POST request with json body
+POST http://localhost:8090/objects/1/policies/1
+Content-Type: application/json
+
+### Send POST request with json body
+POST http://localhost:8090/options/2/objects/2
+Content-Type: application/json
+
+### Send POST request with json body
+POST http://localhost:8090/objects/1/options/1
+Content-Type: application/json
+
 ### Get request with a header
-GET http://localhost:8090/clients
+GET http://localhost:8090/objects
 Accept: application/json
 
 ### Get request with a header
-GET http://localhost:8090/clients/14
+GET http://localhost:8090/options
+Accept: application/json
+
+### Get request with a header
+GET http://localhost:8090/clients
 Accept: application/json
 
 ### Get request with a header
@@ -66,3 +95,9 @@ Content-Type: application/json
 ### Send POST request with json body
 GET http://localhost:8090/options
 Content-Type: application/json
+
+### Send DELETE request
+DELETE http://localhost:8090/clients/1
+
+### Send PUT request
+PUT http://localhost:8090/policies/1/clients/2

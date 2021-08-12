@@ -8,6 +8,7 @@ import jp.mikunika.SpringBootInsurance.service.InsuranceOptionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -23,13 +24,13 @@ public class InsuranceOptionServiceImpl implements InsuranceOptionService {
     }
 
     @Override
-    public List<InsuranceOption> getAll() {
+    public List<InsuranceOption> findAll() {
         return optionRepository.findAll();
     }
 
     @Override
-    public InsuranceOption getOne(Long id) {
-        return optionRepository.getById(id);
+    public InsuranceOption findOne(Long id) {
+        return optionRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class InsuranceOptionServiceImpl implements InsuranceOptionService {
 
     @Override
     public InsuranceOption update(Long id, InsuranceOption entityNew) {
-        InsuranceOption option = getOne(id);
+        InsuranceOption option = findOne(id);
         BeanUtils.copyProperties(entityNew, option, "id");
         return optionRepository.save(option);
     }
@@ -50,14 +51,14 @@ public class InsuranceOptionServiceImpl implements InsuranceOptionService {
     }
 
     @Override
-    public List<InsuranceObject> getOptionObjects(Long optionId) {
-        InsuranceOption option = getOne(optionId);
+    public List<InsuranceObject> getOptionObjectList(Long optionId) {
+        InsuranceOption option = findOne(optionId);
         return List.copyOf(option.getInsuranceObjectList());
     }
 
     @Override
-    public InsuranceOption addObjectToOption(Long optionId, InsuranceObject object) {
-        InsuranceOption option = getOne(optionId);
+    public InsuranceOption createObjectForOption(Long optionId, InsuranceObject object) {
+        InsuranceOption option = findOne(optionId);
         objectService.save(object);
         object.getInsuranceOptionList().add(option);
         return save(option);
@@ -65,8 +66,8 @@ public class InsuranceOptionServiceImpl implements InsuranceOptionService {
 
     @Override
     public InsuranceOption setObjectToOption(Long optionId, Long objectId) {
-        InsuranceOption option = getOne(optionId);
-        InsuranceObject object = objectService.getOne(objectId);
+        InsuranceOption option = findOne(optionId);
+        InsuranceObject object = objectService.findOne(objectId);
         object.getInsuranceOptionList().add(option);
         return save(option);
     }

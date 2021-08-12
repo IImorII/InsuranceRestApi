@@ -1,5 +1,6 @@
 package jp.mikunika.SpringBootInsurance.service.impl;
 
+import jp.mikunika.SpringBootInsurance.exception.EntityRelationsException;
 import jp.mikunika.SpringBootInsurance.model.InsuranceClient;
 import jp.mikunika.SpringBootInsurance.model.InsurancePolicy;
 import jp.mikunika.SpringBootInsurance.repository.ClientRepository;
@@ -15,6 +16,8 @@ import java.util.List;
 @Service
 public class InsuranceClientServiceImpl implements InsuranceClientService {
 
+    private final static String ERROR_POLICY_HAS_CLIENT = "This policy already has client.";
+
     private final ClientRepository clientRepository;
     private final InsurancePolicyService policyService;
 
@@ -26,13 +29,13 @@ public class InsuranceClientServiceImpl implements InsuranceClientService {
     }
 
     @Override
-    public List<InsuranceClient> getAll() {
+    public List<InsuranceClient> findAll() {
         return clientRepository.findAll();
     }
 
     @Override
-    public InsuranceClient getOne(Long id) {
-        return clientRepository.getById(id);
+    public InsuranceClient findOne(Long id) {
+        return clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class InsuranceClientServiceImpl implements InsuranceClientService {
 
     @Override
     public InsuranceClient update(Long id, InsuranceClient entityNew) {
-        InsuranceClient client = getOne(id);
+        InsuranceClient client = findOne(id);
         BeanUtils.copyProperties(entityNew, client, "id");
         return clientRepository.save(client);
     }
@@ -54,13 +57,13 @@ public class InsuranceClientServiceImpl implements InsuranceClientService {
 
     @Override
     public List<InsurancePolicy> getClientPolicyList(Long clientId) {
-        InsuranceClient client = getOne(clientId);
+        InsuranceClient client = findOne(clientId);
         return List.copyOf(client.getInsurancePolicyList());
     }
 
     @Override
-    public InsuranceClient addPolicyToClient(Long clientId, InsurancePolicy policy) {
-        InsuranceClient client = getOne(clientId);
+    public InsuranceClient createPolicyForClient(Long clientId, InsurancePolicy policy) {
+        InsuranceClient client = findOne(clientId);
         policyService.save(policy);
         policy.setClient(client);
         return save(client);
@@ -68,9 +71,15 @@ public class InsuranceClientServiceImpl implements InsuranceClientService {
 
     @Override
     public InsuranceClient setPolicyToClient(Long clientId, Long policyId) {
-        InsuranceClient client = getOne(clientId);
-        InsurancePolicy policy = policyService.getOne(policyId);
+        InsuranceClient client = findOne(clientId);
+        InsurancePolicy policy = policyService.findOne(policyId);
+        if (policy.getClient() != null) {
+            throw new EntityRelationsException(policy.getName() + ". " +
+                    ERROR_POLICY_HAS_CLIENT + " " +
+                    policy.getClient().getName());
+        }
         policy.setClient(client);
+        client.getInsurancePolicyList().add(policy);
         return save(client);
     }
 

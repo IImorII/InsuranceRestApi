@@ -10,14 +10,16 @@ public interface InsurancePolicyService extends BaseService<InsurancePolicy> {
 
     /** GET - retrieve related objects */
     InsuranceClient getPolicyClient(Long policyId);
-    List<InsuranceObject> getPolicyObjects(Long policyId);
+    List<InsuranceObject> getPolicyObjectList(Long policyId);
 
     /** POST without id - create a new object and connect it with current object */
-    InsurancePolicy addObjectToPolicy(Long policyId, InsuranceObject object);
-    InsurancePolicy addClientToPolicy(Long policyId, InsuranceClient client);
+    InsurancePolicy createObjectForPolicy(Long policyId, InsuranceObject object);
+    InsurancePolicy createClientForPolicy(Long policyId, InsuranceClient client);
 
     /** POST with id - create relationship between the two existing objects */
     InsurancePolicy setObjectToPolicy(Long policyId, Long objectId);
     InsurancePolicy setClientToPolicy(Long policyId, Long clientId);
+
+    InsurancePolicy changeClientInPolicy(Long policyId, Long clientId);
 
 }
