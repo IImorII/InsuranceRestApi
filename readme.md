@@ -9,7 +9,7 @@
 
 ## Database
 
-![database](https://i.ibb.co/r0LMQdT/image.png =800px)
+<img src="https://i.ibb.co/r0LMQdT/image.png" width="250">
 
 ## General endpoints
 
