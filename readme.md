@@ -2,16 +2,16 @@
 
 ## How to install
 
-1. Clone this repo.
-2. cd ./clonedRepo.
-3. You can first build the project yourself using "mvn clean install -DskipTests" (Optional)
-3. Run "docker-compose up".
-4. Wait about 30-40 sec for MySQL server up.
-5. After loading send requests for REST api on localhost:8090 (Postman or fetch).
+### 1. Clone this repo.
+### 2. cd ./clonedRepo.
+### 3. You can first build the project yourself using "mvn clean install -DskipTests" (Optional)
+### 3. Run "docker-compose up".
+### 4. Wait about 30-40 sec for MySQL server up.
+### 5. After loading send requests for REST api on localhost:8090 (Postman or fetch).
 
-### Also you can go to localhost:8090 using web browser to create clients via demo UI.
+#### Also you can go to localhost:8090 using web browser to create clients via demo UI.
 
-### If you want to run the application without using docker, change the datasource in application.properties.
+#### If you want to run the application without using docker, change the datasource in application.properties.
 
 # Insurance REST API
 
@@ -24,37 +24,37 @@
 
 ## General endpoints
 
-* /clients - insurance clients.
-* /objects - insurance objects for policy.
-* /types - types for objects.
-* /options - insurance options for object.
-* /policies - insurance policies for client.
+### * /clients - insurance clients.
+### * /objects - insurance objects for policy.
+### * /types - types for objects.
+### * /options - insurance options for object.
+### * /policies - insurance policies for client.
 
 ## Entities JSON fields for POST/PUT body
 
-* client: "name", "birth".
-* object: "name", "price".
-* type: "name".
-* option: "name".
-* policy: "name".
+### * client: "name", "birth".
+### * object: "name", "price".
+### * type: "name".
+### * option: "name".
+### * policy: "name".
 
 
 ## How to use
 
-* create types to be used to create insurance objects (POST: /types).
+### * create types to be used to create insurance objects (POST: /types).
 #### (ex: name = "car", name = "house").
-* create insurance options to be used for insurance objects (POST: /options).
+### * create insurance options to be used for insurance objects (POST: /options).
 #### (ex: name = "collision coverage", name = "comprehensive coverage")
-* create client (POST: /clients).
+### * create client (POST: /clients).
 #### (ex: name = "Antony Oner", birth = "1996").
-* create policy for this client (POST: clients/1/policy).
+### * create policy for this client (POST: clients/1/policy).
 #### (ex: name = "All Insurance").
-* create insurance objects for this policy (POST: policies/1/objects).
+### * create insurance objects for this policy (POST: policies/1/objects).
 #### (ex: name = "Red car", name = "Wooden house").
-* for each object set its type from /types (POST: objects/1/types/1).
+### * for each object set its type from /types (POST: objects/1/types/1).
 #### to add type 1 for object 1.
-* for each object set its options from /options.
-(POST: objects/1/options/1), (POST: objects/1/options/2).
+### * for each object set its options from /options.
+#### (POST: objects/1/options/1), (POST: objects/1/options/2).
 #### to add option 1 and 2 for object 1.
 
 
